@@ -14,7 +14,6 @@ Please use the following command to clone this repo:
 
 ## Are Markdown files similar?
 
-In `R Markdown`, code is written with block:
-```{r}
-x <- seq(0.1, 4, length=20)
-```
+- So far, it seems that it works just fine
+- Equations?
+$$\mathbb{E}(\mathbf{y}|\mathbf{X})=\mathbf{X\beta}$$
