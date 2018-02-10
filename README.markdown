@@ -16,6 +16,5 @@ Please use the following command to clone this repo:
 
 - So far, it seems that it works just fine
 - Equations?
-```math
-\mathbb{E}(\mathbf{y}|\mathbf{X})=\mathbf{X\beta}
-```
+$$\mathbb{E}(\mathbf{y}|\mathbf{X})=\mathbf{X\beta}$$
+- This Markdown file does not support LaTeX
