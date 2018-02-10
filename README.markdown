@@ -11,3 +11,10 @@ Please use the following command to clone this repo:
 
 - `doc` for draft report (please navigate to the subdirectory for compilation)
 - `code` for code
+
+## Are Markdown files similar?
+
+In `R Markdown`, code is written with block:
+```{r}
+x <- seq(0.1, 4, length=20)
+```
