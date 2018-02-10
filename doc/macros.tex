@@ -1,0 +1,80 @@
+\newcommand*\samethanks[1][\value{footnote}]{\footnotemark[#1]}
+\def\textrightarrow{$\rightarrow$}
+\newcommand{\pcline }{\rule{0in}{0.0in}    }  % Spacing for pseudo-code.
+\newcommand{\pctab  }{\hspace{0.10in}      }  % Pseudo-code indentation.
+\newcommand{\pcbigtab  }{\hspace{1.75in}    }  % Pseudo-code indentation.
+\newcommand{\pcasgn }{\mbox{$\leftarrow$}  }  % Pseudo-code assignment operator
+\newcommand{\pcomment}[1]{\mbox{// {\it #1}}}  % Pseudo-code comments.
+\newcommand{\pckeyword}[1]{\mbox{{\bf #1}}}  % Pseudo-code keywords.
+\newcommand{\pcspace}{\hspace{0.10in}}
+
+\newcommand{\pcode}[1]{
+    \footnotesize
+    \vspace{-0.1in}
+    \begin{minipage}{100in} % The width argument will be ignored:
+                            % See lamport p. 99
+    \begin{tabbing} \hspace{0.10in} \= \pctab \= \pctab \= \pctab \= \pcbigtab \= \\
+        #1
+    \end{tabbing}
+    \end{minipage}
+%    \vspace{0.15in}
+    }
+%
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\newcommand{\tabtextsize}{\small}
+\newcommand{\figtext}[1]{{\footnotesize #1}}
+\newcommand{\Caption}[2]{\caption[#1]{{\em #1} #2}}
+\newcommand{\invisible}[1]{{\color{white} #1}}
+\newcommand{\emacsquote}[1]{{``#1''}}
+
+\definecolor{color1}{rgb}{0.7,0,0}
+\definecolor{color2}{rgb}{0,0.4,0}
+\definecolor{color3}{rgb}{0,0,0.8}
+\newcommand{\zjy}[1]{{\color{color1} Jiayao Zhang: #1 $\qed$}}
+\newcommand{\szh}[1]{{\color{color2} Zehao Su: #1 $\qed$}}
+\newcommand{\lc}[1]{{\color{color3} Chen Liu: #1 $\qed$}}
+\newcommand{\warning}[1]{{\it\color{red} #1}}
+\newcommand{\note}[1]{{\it\color{blue} #1}}
+\newcommand{\nothing}[1]{}
+\newcommand{\passthrough}[1]{#1}
+\definecolor{AudioColor}{rgb}{0.56,0.34,0.62}
+\newcommand{\audio}[1]{{\color{AudioColor} Audio: #1}}
+
+\newcommand{\psdraftboxDefault}{\psnodraftbox}
+
+\definecolor{figred}{rgb}{1,0,0}
+\definecolor{figgreen}{rgb}{0,0.6,0}
+\definecolor{figblue}{rgb}{0,0,1}
+\definecolor{figpink}{rgb}{1,0.63,0.63}
+
+%\ifthenelse{\equal{\final}{1}}
+%{
+%\renewcommand{\zjy}[1]{}
+%\renewcommand{\szh}[1]{}
+%\renewcommand{\lc}[1]{}
+%\renewcommand{\warning}[1]{}
+%\renewcommand{\note}[1]{}
+%}
+
+\newcommand{\pseudocode}{Algorithm}
+\floatstyle{plain}
+\newfloat{algorithm}{tbhp}{lop}
+\floatname{algorithm}{\pseudocode}
+
+\newcommand{\filename}[1]{\url{#1}}
+\newcommand{\foldername}[1]{\url{#1}}
+
+\let\oldparagraph\paragraph
+\newcommand{\passage}[1]{\oldparagraph{\textbf{#1}}}
+\renewcommand{\paragraph}[1]{\oldparagraph{\textbf{#1}.}} % \liyi{keep/remove that end period depending on whether you want a paragraph title to end with a period}
+
+\newcommand{\command}[1]{{\color{black}{\tt #1}}}
+
+\ifdefined\email
+\else
+\newcommand{\email}[1]{\url{#1}}
+\fi
+
+

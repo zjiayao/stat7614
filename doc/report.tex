@@ -1,0 +1,63 @@
+\documentclass{article}
+\newcommand{\final}{0}
+% Change to 1 for final submission, all notes are suppressed
+
+\usepackage[final]{template}
+\input{package}
+\input{macros}
+\input{symbols}
+\graphicspath{{figs/}}
+
+\title{STAT7614: Advanced Statistical Learning\\Group Project}
+
+% hi guys, pls fill in the details
+\author{
+    Chen~Liu\thanks{Indicates equal contribution.}\\
+    Department of\\
+    University of Hong Kong\\
+    \texttt{liuchen@connect.hku.hk}\\
+  \And
+    Zehao~Su\samethanks{} \\
+    Department of \\
+    University of Hong Kong \\
+    \texttt{taylorsu@hku.hk} \\
+  \AND
+    Jiayao~Zhang\samethanks{} \\
+    Department of Computer Science \\
+    University of Hong Kong \\
+    \texttt{jyzhang@cs.hku.hk} \\
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Introduction}
+
+\section{Related Work}
+
+\section{Methods}
+
+\section{Results}
+
+\section{Conclusions}
+
+{\small
+\nocite{*}
+\bibliography{report}
+\bibliographystyle{alpha}
+}
+\ifthenelse{\equal{\final}{0}}
+{
+\clearpage
+\pagenumbering{roman}
+\section{Notes and Discussions}
+\begin{description}
+\input{note}
+\end{description}
+}
+
+\end{document}
