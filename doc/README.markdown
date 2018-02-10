@@ -2,22 +2,23 @@
 
 ## Compile
 
-Please use `Makefile` for compilation:
+A `Makefile` is included for easy compilation. Please issue the following command:
 ```
     make all
 ```
 
-Please have a working `latex` distribution and preferably `inkscape` for vector
-graphics (can be installed throw `homebrew`).
+### Dependencies
+- A working `latex` distribution (e.g., `texlive`)
+- Preferably `inkscape` for vector graphics (can be installed through `homebrew`).
 
 
 ## File Hierarchy
 
 - `report.tex`: main file containing the report.
-- `note.tex`: blog-like discussion and notes for internal use
+- `note.tex`: blog-like discussions and notes for internal use
 - `report.bib`: bibliography library
 - `package.tex`, `template.tex`, `symbols.tex`, `macro.tex`: style template and
-    shorthand commands, feel free to hack them
+    shorthand commands, please feel free to hack them
 
 ## Common `git` Commands
 
