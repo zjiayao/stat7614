@@ -3,12 +3,12 @@
 
 ## Download
 
-The data store in the single `csv` file `directed_alliance_data.csv` (46Mb),
+The data are stored in a single `csv` file `directed_alliance_data.csv` (46Mb),
 which can be downloaded by
 
     python get_data.py
 
-Since the data file is arguably large, it is not recommended to check it in the
+Since the data file is arguably large, it is not recommended to check it in to the
 GitHub repo.
 
 The `SHA-256` and `MD5` checksums are as follows:
@@ -18,19 +18,19 @@ The `SHA-256` and `MD5` checksums are as follows:
 
 ## Content
 
-- country_a & country_b: the pair of countries that can potentially form alliances (edges in network parlance)
+- `country_a & country_b`: the pair of countries that can potentially form alliances (edges in network parlance)
 
-- year: this is the time indicator for each year (data spans from 1948 to 2009
+- `year`: this is the time indicator for each year (data spans from 1948 to 2009
 
-- polity2_a: this is the level of democracy (a numerical indicator from -10 to 10) where higher values indicate that a country_a is more democratic
+- `polity2_a`: this is the level of democracy (a numerical indicator from -10 to 10) where higher values indicate that a country_a is more democratic
 
-- polity2_b: this is the level of democracy (a numerical indicator from -10 to 10) where higher values indicate that a country_b is more democratic
+- `polity2_b`: this is the level of democracy (a numerical indicator from -10 to 10) where higher values indicate that a country_b is more democratic
 
-- defense: a binary indicator if country_a and country_b were in a defensive alliance with each other in year t
+- `defense`: a binary indicator if country_a and country_b were in a defensive alliance with each other in year t
 
-- countrya_agereg: this is a count meter that indicates the duration that countrya first experienced a regime change (structural shock)
+- `countrya_agereg`: this is a count meter that indicates the duration that countrya first experienced a regime change (structural shock)
 
-- countrya_agedem: this is count meter for when the country first transitioned into a democracy
+- `countrya_agedem`: this is count meter for when the country first transitioned into a democracy
 
 ## Possible Directions
 
