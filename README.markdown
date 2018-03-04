@@ -11,3 +11,5 @@ Please use the following command to clone this repo:
 
 - `doc` for draft report (please navigate to the subdirectory for compilation)
 - `code` for code
+- `dataset` for dataset, which includes
+  * `directed_alliance`
