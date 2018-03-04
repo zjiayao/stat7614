@@ -13,3 +13,10 @@ Please use the following command to clone this repo:
 - `code` for code
 - `dataset` for dataset, which includes
   * `directed_alliance`
+
+## Are Markdown files similar?
+
+- So far, it seems that it works just fine
+- Equations?
+$$\mathbb{E}(\mathbf{y}|\mathbf{X})=\mathbf{X\beta}$$
+- This Markdown file does not support LaTeX
