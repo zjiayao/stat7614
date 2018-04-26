@@ -7,43 +7,217 @@
 \input{macros}
 \input{symbols}
 \graphicspath{{figs/}}
-
-\title{STAT7614: Advanced Statistical Learning\\Group Project}
+\newcommand{\noun}[1]{\textbf{#1}}
+\newcommand{\var}[1]{\texttt{#1}}
+\title{Understanding Admission Results of CS Graduate Programs in U.S. Universities}
 
 % hi guys, pls fill in the details
 \author{
-    Chen~Liu\thanks{Indicates equal contribution.}\\
-    Department of\\
+    Chen~Liu\thanks{Indicates equal contribution.},~~Zehao~Su\samethanks{},~~and~Jiayao~Zhang\samethanks{}\\
     University of Hong Kong\\
-    \texttt{liuchen@connect.hku.hk}\\
-  \And
-    Zehao~Su\samethanks{} \\
-    Department of \\
-    University of Hong Kong \\
-    \texttt{taylorsu@hku.hk} \\
-  \AND
-    Jiayao~Zhang\samethanks{} \\
-    Department of Computer Science \\
-    University of Hong Kong \\
-    \texttt{jyzhang@cs.hku.hk} \\
+    Pokfulam, Hong Kong\\
+    \texttt{\{liuchen,taylorsu,zjohnson\}@connect.hku.hk}\\
 }
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-
+    Recent years have witnessed a surge in Computer Science (CS) research, which achieved unparalleled
+    successes in a kaleidoscope of science and engineering applications spanning
+    artificial intelligence \cite{}, natural language processing \cite{}, computer vision \cite{},
+    statistical learning theory \cite{}, blockchain and cryptocurrency \cite{},
+    computational biology and bioinformatics \cite{},
+    intelligent grids and Internet-of-Things (IoT) \cite{}. Consequently,
+    the difficulty of pursuing a higher degree in CS or related subjects in decent graduate
+    schools has been elevated to an unprecedented new height\cite{}. In this paper, motivated
+    by these observations, the authors, consisting of a data-driven earth scientist, a computational biologist,
+     and a machine learning researcher, study the factors governing the
+    admissions of graduate schools in the U.S. by means of general linear
+    models (GLM) and general additive models (GAM). We seek answers to several interesting questions and
+    render crisp insights from the model inference and analysis.
+    We conclude this paper by providing guidelines for future graduate schools
+    applicants, identifying limitations that are not addressed by this paper
+    and pointing out several possible future directions.
 \end{abstract}
 
 \section{Introduction}
 
-\section{Related Work}
+\note{To be further extended.}
 
-\section{Methods}
+Through the study outlined in this paper, we aim at seeking a better understanding of graduate school applications in CS related subjects. We summarize our contribution as follows:
 
-\section{Results}
+\begin{enumerate}
+    \item We give the first systematic study of the data available on \noun{GradCafe}, to the
+	best of our knowledge;
 
-\section{Conclusions}
+    \item We give quantitative results of the answers to the following curious and important
+	questions:
+	    \begin{enumerate}
+		\item \emph{What are the significant covariates that impact the application results?}
+
+		\item \emph{Do GPA and standard test scores affects the application results differently for MS
+		    and PhD applicants?}
+
+		\item \emph{Does possessing a U.S. Bachelor degree significantly increases the likelihood of being admitted?}
+	    \end{enumerate}
+
+    \item We give guidelines and insights drawn from our analysis to prospective applicants.
+
+\end{enumerate}
+
+This paper is structured as follows, \Cref{sec:background} introduces
+the dataset protocol and recall important notions of GLM and GAM, which
+we only give a brief treatment as the readers of this paper are expected
+to be familiar with these topics; \Cref{sec:methods} discusses the models
+we adopt for the admission results data, we emphasis on the applicability
+and estimate the expressivity of the model chosen; we next fit the proposed
+model in \Cref{sec:results} together with model selection and parameter analysis
+and interpretation, based on which, we are ready to outline the answers to the
+questions of interest as well as provide tips in \Cref{sec:conclusions}. We also
+include a sketchy mention of the limitations and future directions as we
+conclude this paper.
+
+
+\section{Background on Data Acquisition and Exploration} \label{sec:background}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.5\linewidth}\centering
+	\includegraphics[width=\textwidth]{gpa.eps}
+	\caption{Histogram of Applicants' GPA.}
+    \end{subfigure}%
+    \begin{subfigure}{.5\linewidth}\centering
+	\includegraphics[width=\textwidth]{gre.eps}
+	\caption{Histogram of Applicants' GRE Verbal Score.}
+    \end{subfigure}
+    \begin{subfigure}{.5\linewidth}\centering
+	\includegraphics[width=\textwidth]{all_decision.eps}
+	\caption{Overall Decisions.}
+    \end{subfigure}%
+    \begin{subfigure}{.5\linewidth}\centering
+	\includegraphics[width=\textwidth]{top5_decision.eps}
+	\caption{Decisions from Top 5 Schools.}
+    \end{subfigure}%
+    \caption{Histograms of Selected Covariates.}  \label{fig:dataset}
+\end{figure}
+
+	\begin{table}[htpb]
+	    \centering
+	    \begin{tabular}{cccc}
+		Institution & Program (Season) & Decision \& Date & Status \\\hline\hline
+		\emph{Stanford University} & CS Masters (F18) & Rejected via E-mail on 16 March 2018 & I \\
+		\multicolumn{4}{l}{Comment: \emph{I think I have no grad schools to attend next year.}}\\
+		\emph{Stanford University} & CS PhD (F18) & Accepted via Phone on 7 Feb 2018 & U \\
+		\multicolumn{4}{l}{Comment: \emph{Call from POI and email from student buddy. Absolutely shocked and very excited.}}\\
+		\ldots\\
+		\emph{UC Berkeley} & EECS PhD (F18) & Accepted via E-mail on 2 Feb 2018 & A \\
+		\multicolumn{4}{l}{Comment: \emph{Accepted with nomination for university fellowship. 1 first author conference talk...}}\\ \hline\hline
+	    \end{tabular}
+	    \caption{Samples of \noun{GradCafe} dataset.}
+	    \label{table:data_sample}
+	\end{table}
+	In this paper, we collect data from \textbf{GradCafe}, an online
+	sharing platform of graduate school admission results. The dataset
+	involves the following covariates:
+	\var{university}, the graduate school the applicant applied for;
+	\var{degree}, one of either \var{\{MBA, MEng, MFA, MS, PhD, Other\}}, the desired degree applied for;
+	\var{decision}, one of either \var{\{Accepted, Rejected, Wait Listed\}}, the application result;
+	\var{gpa}, the latest Grading Point Average (GPA) the applicant possesses;
+	\var{gre\_verbal}, \var{gre\_quant}, \var{gre\_writing}, standard test scores examining verbal, quantitative and writing skills;
+	\var{status}, either one of \var{\{American, International, International with US Degree,
+	Other\}}, dictating the status of the applicant as of the application
+	\var{comments}, additional information shared by the applicant. Several
+	typical entries are tabulated in \Cref{table:data_sample}.
+
+	We augment this dataset by introducing metrics examining the prestigious of the graduate
+	school. Instead of selecting from a variety of university ranking, we focus on the \noun{CSRanking},
+	which is specifically tailored for CS research. To that end, we attach two more covariates per record,
+	namely,
+	\var{publications}, publication index, the multiplier of number of total publications with reference
+	to the lowest value;
+	\var{faculty}, the number of faculty members (not counting Emeritus faculties).
+	We note through our data exploration, these metrics, though may seem partial at first mention,
+	are consistent with the general ranking results from, for example, US News \cite{}, Times \cite{},
+	to name a few.
+
+	We preprocess the dataset to select those applications made to US universities,
+	clean up invalid data, normalize the GPA on a $4.0$ scale and GRE tests
+	to new scale ($170$ maximum). We also merge the categories \var{\{MBA, MEng, MFA, MS, Other\}}
+	to a singleton \var{MS} as it suffices the objectives set for this paper. After these manipulations,
+	we had $21209$ records from the applications ranging from $2011$ to $2015$. Noted some records
+	may miss certain metrics such as GPA, in that case, our model ignore the very entries for parameter
+	estimation. A short summary of the cleaned dataset is given in \Cref{table:data_summary:quant,table:data_summary:cat}. We also plot the histogram of several selected covariates in \Cref{fig:dataset}.
+
+	\begin{table}[htpb]
+	    \centering
+	    \begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		Covariate & Available Record & Min. & Mean & Median & Max. \\\hline
+		\var{gpa} & $6015$ & $1.00$ & $3.65$ & $3.70$ & $4.00$ \\\hline
+		\var{gre\_verbal} & $7078$ & $130.0$ & $157.8$ & $158.0$ & $170.0$ \\\hline
+		\var{gre\_quant} & $7078$ & $131.0$ & $163.9$ & $166.0$ & $170.0$ \\\hline
+		\var{gre\_writing} & $6873$ & $2.00$ & $3.89$ & $4.00$ & $6.00$ \\\hline
+		\var{publication} & all & $1.00$ & $6.38$ & $5.40$ & $18.10$ \\\hline
+		\var{faculty} & all & $2$ & $53$ & $50$ & $152$ \\\hline
+	    \end{tabular}
+	    \caption{Summary for Quantitative Covariates.}
+	    \label{table:data_summary:quant}
+	\end{table}
+
+	\begin{table}[htpb]
+	    \centering
+	    \begin{subtable}{0.2\textwidth}\centering
+	    \begin{tabular}{|c|c|}
+		\hline
+		MS & PhD \\\hline
+		7693 & 13516 \\\hline
+	    \end{tabular}
+		\caption{\var{degree}.}
+	    \end{subtable}%
+	    \begin{subtable}{0.4\textwidth}\centering
+	    \begin{tabular}{|c|c|c|}
+		\hline
+		Accepted & Rejected & Wait Listed \\\hline
+		9971 & 10912 & 326 \\\hline
+	    \end{tabular}
+		\caption{\var{decision}.}
+	    \end{subtable}%
+	    \begin{subtable}{0.4\textwidth}\centering
+	    \begin{tabular}{|c|c|c|c|}
+		\hline
+		A & U & I & O \\\hline
+		4159 & 2747 & 13546 & 219 \\\hline
+	    \end{tabular}
+		\caption{\var{status}.}
+	    \end{subtable}
+	    \caption{Summary for Categorical Covariates.}
+	    \label{table:data_summary:cat}
+	\end{table}
+
+
+
+\note{A sketchy mention of the methods should suffice}
+
+
+\section{Methods} \label{sec:methods}
+
+\section{Results and Model Selection} \label{sec:results}
+
+\section{Conclusions and Future Directions} \label{sec:conclusions}
+
+    In this paper, we study the factors that are significant
+    to the applications for CS graduate programs in the U.S.
+    We remark that, the model proposed does not account for
+    the representativeness of the data collected. Namely,
+    the data collected may be not a representative sample
+    from the unknown population; the data may be more correlated
+    as intuitively, most failed applicants may wish not to share
+    this experience online. For the sake of completeness,
+    we remark that imposing a Bayesian model or use multilevel
+    regression and postratification (MRP) \cite{} may ameliorate
+    these issues, we are, nonetheless, content with this model
+    in this rather introductory and casual writing.
 
 {\small
 \nocite{*}
@@ -51,13 +225,6 @@
 \bibliographystyle{alpha}
 }
 \ifthenelse{\equal{\final}{0}}
-{
-\clearpage
-\pagenumbering{roman}
-\section{Notes and Discussions}
-\begin{description}
-\input{note}
-\end{description}
-}
+
 
 \end{document}
