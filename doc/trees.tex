@@ -10,11 +10,11 @@ For \textbf{GradCafe} dataset, natural splines of the numeric predictors signifi
       \hline 
     Parameter & Value & Explanation \\ 
     \hline 
-        mtry & 9 & Randomly Selected Predictors\\
+        \var{mtry} & 9 & Randomly Selected Predictors\\
     \hline 
-        splitrule & extratrees & Splitting Rule \\
+        \var{splitrule} & extratrees & Splitting Rule \\
         \hline 
-        min.node.size & 6 & Minimum size of terminal nodes \\
+        \var{min.node.size} & 6 & Minimum size of terminal nodes \\
     \hline 
     \end{tabular}
     \caption{The value of tuning parameters used in Random Forests}
@@ -42,13 +42,13 @@ By 5-fold cross validation with the metric AUC, the tuning parameters are chosen
    \hline 
     Parameter & Value & Explanation \\ 
         \hline
-        eta & 0.005 & Shrinkage\\
+        \var{eta} & 0.005 & Shrinkage\\
         \hline 
-        max\_depth & 9 & Max Tree Depth \\
+        \var{max\_depth} & 9 & Max Tree Depth \\
         \hline 
-        subsample & 0.6 & Subsample Percentage\\
+        \var{subsample} & 0.6 & Subsample Percentage\\
         \hline 
-        Colsample\_bytree & 0.9 & Subsample Ratio of Columns \\
+        \var{Colsample\_bytree} & 0.9 & Subsample Ratio of Columns \\
         \hline 
     \end{tabular}
     \caption{The value of tuning parameters used in XGBoost}
