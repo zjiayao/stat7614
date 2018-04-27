@@ -1,0 +1,95 @@
+\subsection{Bayesian Net} \label{sub:bn}
+
+	From the previous mode, we note there is indeed underlying conditional
+	independeices among the covariates of interest. In this subsectoin,
+	we explore along this line using Bayesian net. Noted the quantitative vacovariates in the dataset
+	are generally not very suitable for Gaussian BN (for example, the support is not the entire real line).
+	To that end, we first quantize several variables of interest by thresholding. We divide \var{gpa}, \var{gre\_verbar}
+	and \var{uni\_pub} into four levels \var{A, B, C, D}, which we termed as \var{gpa\_level},
+	\var{gre\_level} and \var{uni\_pub\_level}. We consider the dependency
+	relationship among these derived variables as well as \var{degree}, \var{status}, \var{decision},
+	\var{decision\_method}.
+
+	\subsubsection{Structural Inference}
+
+		\begin{figure}[htpb]
+			\centering
+			\def\svgwidth{0.6\textwidth}
+			\input{figs/bn.pdf_tex}
+			\caption{Bayesian network structure of selected covariates. Shaded areas correpsond to different Markov Blankets.}
+			\label{fig:bn}
+		\end{figure}
+
+		We first learn the dependency strucuture from data using \noun{Hill-Climbing} (HC) algorithm \cite{}.
+		HC algorithm, in the hindsight, performs iterative optimization on the space of directed acyclic graphs
+		by maximizing \noun{network score}. In this case, we select the score
+		based on Bayesian Information Criterion (BIC), namely,
+		\begin{equation} \label{eq:bn_bic}
+		\begin{aligned}
+			\mathrm{BIC}(G) = \ln \ell(\x \vert G) - \frac{d}{2} \ln n,
+		\end{aligned}
+		\end{equation}
+		where $\ell(\cdot)$ is the log-likelihood of the data conditioning on the graph
+		structure, $d$ the number of parameters in the mode and $n$ the number of observations.
+		We depicted the fitted graph in \Cref{fig:hcdag}. We consider the Markov blanket
+		for \var{decision} (light scarlet shaded region). Noted \var{decision} is $d$-separated
+		from all other covariates that are not in the same blanket. In other words, the inference
+		on \var{decision} may be mainly done on \var{gpa}, \var{gre}, \var{degree} and \var{uni\_pub},
+		which is aligned with our intuition.
+
+	\subsubsection{Parameter Estimation}
+
+		We proceed to fit the Bayeseian net using the structure learnt from the previous subsection.
+		We highlight several insights from interpretating the learnt conditional
+		probability table.
+
+	\begin{table}[htpb]
+	    \centering
+	    \begin{subtable}{0.2\textwidth}\centering
+	    \begin{tabular}{|c|c|c|}
+		\hline
+			Decision & MS & PhD \\\hline
+			Accepted & $0.55$ & $0.45$ \\\hline
+			Rejected & $0.44$ & $0.56$ \\\hline
+	    \end{tabular}
+			\caption{} \label{table:bn:1}
+	    \end{subtable} \\
+	    \begin{subtable}{0.4\textwidth}\centering
+	    \begin{tabular}{|c|c|c|c|}
+		\hline
+			Decision & E-Mail & Phone & Website \\\hline
+			Accepted & $0.913$ & $0.047$ & $0.008$ \\\hline
+			Rejected & $0.814$ & $0.015$ & $0.143$ \\\hline
+	    \end{tabular}
+			\caption{} \label{table:bn:2}
+	    \end{subtable}%
+	    \begin{subtable}{0.4\textwidth}\centering
+	    \begin{tabular}{|c|c|c|c|}
+		\hline
+			Decision & E-Mail & Phone & Website \\\hline
+			Accepted & $0.781$ & $0.015$ & $0.172$ \\\hline
+			Rejected & $0.597$ & $0.005$ & $0.326$ \\\hline
+	    \end{tabular}
+			\caption{} \label{table:bn:3}
+	    \end{subtable}%
+	    \caption{Selected parameter estimates for Bayesian net.}
+	    \label{table:bn}
+	\end{table}
+
+		\paragraph{The Degree Applied}
+			We first consider the conditional probability estimates
+			for \var{decision} conditioning on \var{degree}, as tabulated
+			in \Cref{table:bn:1}. This suggested that in general, PhD applications
+			are more competitive on avereage than MS application, which is
+			inline with the common sense.
+
+		\paragraph{Decision Method Preference Across Different Tiers}
+			We consider the the conditional probability of \var{decision}
+			given different combinations of \var{decision\_method}
+			and \var{uni\_pub\_level}. \Cref{table:bn:2} is conditioning
+			on Tier-A schools whereas \Cref{table:bn:3} on Tier-C.
+			We note, in general, E-mails are most widely usedly method
+			for delivering both good and bad news. Phones are less used,
+			nonetheless, an interesting observation is that if an applicant
+			receives a phone call, then it is at least three times more likely
+			that the incoming call is an offer than a rejection letter.
