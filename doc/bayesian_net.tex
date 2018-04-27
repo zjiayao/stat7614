@@ -1,4 +1,4 @@
-\subsection{Bayesian Net} \label{sub:bn}
+\section{Bayesian Net} \label{sub:bn}
 
 	From the previous mode, we note there is indeed underlying conditional
 	independeices among the covariates of interest. In this subsectoin,
@@ -10,80 +10,85 @@
 	relationship among these derived variables as well as \var{degree}, \var{status}, \var{decision},
 	\var{decision\_method}.
 
-	\subsubsection{Structural Inference}
+	\subsection{Structural Inference}
 
 		\begin{figure}[htpb]
 			\centering
-			\def\svgwidth{0.6\textwidth}
+			\def\svgwidth{0.8\textwidth}
 			\input{figs/bn.pdf_tex}
-			\caption{Bayesian network structure of selected covariates. Shaded areas correpsond to different Markov Blankets.}
+			\caption{Bayesian network structure of selected covariates. Shaded area correpsonds to the Markov Blanket.}
 			\label{fig:bn}
 		\end{figure}
 
-		We first learn the dependency strucuture from data using \noun{Hill-Climbing} (HC) algorithm \cite{}.
+		We first learn the dependency strucuture from data using \noun{Hill-Climbing} (HC) algorithm \cite{Tsa:2006:HC}.
 		HC algorithm, in the hindsight, performs iterative optimization on the space of directed acyclic graphs
 		by maximizing \noun{network score}. In this case, we select the score
 		based on Bayesian Information Criterion (BIC), namely,
 		\begin{equation} \label{eq:bn_bic}
 		\begin{aligned}
-			\mathrm{BIC}(G) = \ln \ell(\x \vert G) - \frac{d}{2} \ln n,
+			\mathrm{BIC}(G) = \ell(\x \vert G) - \frac{d}{2} \ln n,
 		\end{aligned}
 		\end{equation}
 		where $\ell(\cdot)$ is the log-likelihood of the data conditioning on the graph
 		structure, $d$ the number of parameters in the mode and $n$ the number of observations.
-		We depicted the fitted graph in \Cref{fig:hcdag}. We consider the Markov blanket
+		We depicted the graph used in \Cref{fig:bn}. This graph is based on the one
+		fitted using HC algorithm and we added one edge from \var{status} to \var{decision} for betterWe consider the Markov blanket
 		for \var{decision} (light scarlet shaded region). Noted \var{decision} is $d$-separated
 		from all other covariates that are not in the same blanket. In other words, the inference
-		on \var{decision} may be mainly done on \var{gpa}, \var{gre}, \var{degree} and \var{uni\_pub},
-		which is aligned with our intuition.
+		on \var{decision} may be solely performed on \var{gpa}, \var{status}, \var{degree},
+		\var{decision\_method} and \var{uni\_pub}.
 
-	\subsubsection{Parameter Estimation}
+	\subsection{Parameter Estimation and Inference}
 
 		We proceed to fit the Bayeseian net using the structure learnt from the previous subsection.
-		We highlight several insights from interpretating the learnt conditional
-		probability table.
+		We highlight several insights from interpretating the learnt conditional probability table.
 
 	\begin{table}[htpb]
 	    \centering
-	    \begin{subtable}{0.2\textwidth}\centering
-	    \begin{tabular}{|c|c|c|}
+	    \begin{subtable}{\textwidth}\centering
+	    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 		\hline
-			Decision & MS & PhD \\\hline
-			Accepted & $0.55$ & $0.45$ \\\hline
-			Rejected & $0.44$ & $0.56$ \\\hline
+			\multirow{ 2}{*}{Decision} & \multicolumn{2}{|c|}{A} & \multicolumn{2}{|c|}{U} & \multicolumn{2}{|c|}{I} & \multicolumn{2}{|c|}{O} \\\cline{2-9}
+			& MS & PhD & MS & PhD & MS & PhD & MS & PhD \\\hline
+			Accepted & $0.68$ & $0.51$ & $0.57$ & $0.38$ & $0.50$ & $0.41$ & $0.63$ & $0.41$\\\hline
+			Rejected & $0.32$ & $0.49$ & $0.43$ & $0.62$ & $0.50$ & $0.59$ & $0.37$ & $0.59$\\\hline
 	    \end{tabular}
-			\caption{} \label{table:bn:1}
+			\caption{Conditioning on \var{status} and \var{degree}.} \label{table:bn:1}
 	    \end{subtable} \\
-	    \begin{subtable}{0.4\textwidth}\centering
+
+	    \begin{subtable}{0.5\textwidth}\centering
 	    \begin{tabular}{|c|c|c|c|}
 		\hline
 			Decision & E-Mail & Phone & Website \\\hline
 			Accepted & $0.913$ & $0.047$ & $0.008$ \\\hline
 			Rejected & $0.814$ & $0.015$ & $0.143$ \\\hline
 	    \end{tabular}
-			\caption{} \label{table:bn:2}
+			\caption{Conditioning on A-Tier Schools.} \label{table:bn:2}
 	    \end{subtable}%
-	    \begin{subtable}{0.4\textwidth}\centering
+	    \begin{subtable}{0.5\textwidth}\centering
 	    \begin{tabular}{|c|c|c|c|}
 		\hline
 			Decision & E-Mail & Phone & Website \\\hline
 			Accepted & $0.781$ & $0.015$ & $0.172$ \\\hline
 			Rejected & $0.597$ & $0.005$ & $0.326$ \\\hline
 	    \end{tabular}
-			\caption{} \label{table:bn:3}
+			\caption{Conditioning on C-Tier Schools.} \label{table:bn:3}
 	    \end{subtable}%
 	    \caption{Selected parameter estimates for Bayesian net.}
 	    \label{table:bn}
 	\end{table}
 
-		\paragraph{The Degree Applied}
+		\paragraph{PhD is more competitative for non U.S. degree holders}
 			We first consider the conditional probability estimates
-			for \var{decision} conditioning on \var{degree}, as tabulated
-			in \Cref{table:bn:1}. This suggested that in general, PhD applications
-			are more competitive on avereage than MS application, which is
-			inline with the common sense.
+			for \var{decision} conditioning on \var{degree} and \var{status}, as tabulated
+			in \Cref{table:bn:1}. Noted the evolution of the conditaionl probability table
+			as the \var{stauts} becomes less favourable (i.e., from \var{A} to \var{U} to \var{I} and to \var{O}).
+			Noted we cannot interpret these probability as an implication of casuality relationship. Nonetheless,
+			the dependence do reveal that U.S. universities tends be more favourable of candidates with
+			U.S. bachelor's degrees. In particular, PhD are even more competitative for non U.S. degree holders
+			than MS.
 
-		\paragraph{Decision Method Preference Across Different Tiers}
+		\paragraph{Decision methods are Across Different Tiers}
 			We consider the the conditional probability of \var{decision}
 			given different combinations of \var{decision\_method}
 			and \var{uni\_pub\_level}. \Cref{table:bn:2} is conditioning
@@ -93,3 +98,10 @@
 			nonetheless, an interesting observation is that if an applicant
 			receives a phone call, then it is at least three times more likely
 			that the incoming call is an offer than a rejection letter.
+
+		\paragraph{Further remarks}
+			As remarked before, noted the learnt graph with the condition probabilities
+			do \emph{not} imply any casual relationships, and should be used only for quering
+			effects of evidence as what we have analyzed. To conclude, we note the insights
+			drawn from this graphical model is quite consistent with what has been experienced among
+			graduate school applicants - either successful or not.

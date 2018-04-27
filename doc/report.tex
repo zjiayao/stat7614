@@ -4,6 +4,7 @@
 
 \usepackage[final]{template}
 \input{package}
+
 \input{macros}
 \input{symbols}
 \graphicspath{{figs/}}
@@ -25,12 +26,12 @@
 \begin{abstract}
     Recent years have witnessed a surge in Computer Science (CS) research, which achieved unparalleled
     successes in a kaleidoscope of science and engineering applications spanning
-    artificial intelligence \cite{}, natural language processing \cite{}, computer vision \cite{},
-    statistical learning theory \cite{}, blockchain and cryptocurrency \cite{},
-    computational biology and bioinformatics \cite{},
-    intelligent grids and Internet-of-Things (IoT) \cite{}. Consequently,
+    artificial intelligence \cite{Silver:2016:Go}, natural language processing \cite{Manning:2014:NLP}, computer vision \cite{Alex:2012:AlexNet},
+    statistical learning theory \cite{LeCun:2015:DL}, blockchain and cryptocurrency \cite{Bonneau:2015:SOK},
+    computational biology \cite{Cock:2009:BioPy} and bioinformatics \cite{Saeys:2007:Bio},
+    intelligent grids and Internet-of-Things (IoT) \cite{Atzori:2010:IOT}. Consequently,
     the difficulty of pursuing a higher degree in CS or related subjects in decent graduate
-    schools has been elevated to an unprecedented new height\cite{}. In this paper, motivated
+    schools has been elevated to an unprecedented new height \cite{Rag:2010:GRAD}. In this paper, motivated
     by these observations, the authors, consisting of a data-driven earth scientist, a computational biologist,
      and a machine learning researcher, study the factors governing the
     admissions of graduate schools in the U.S. by means of general linear
@@ -47,9 +48,9 @@
 
 Through the study outlined in this paper, we aim at seeking a better understanding of graduate school applications in CS related subjects. We summarize our contribution as follows:
 
-\begin{enumerate}
-    \item We give the first systematic study of the data available on \noun{GradCafe}, to the
-	best of our knowledge;
+\begin{itemize}
+    \item We give a systematic study of the data available on \noun{GradCafe} \cite{GradCafe}.
+	To the best of our knowledge, this is the first work achieving this.
 
     \item We give quantitative results of the answers to the following curious and important
 	questions:
@@ -64,7 +65,7 @@ Through the study outlined in this paper, we aim at seeking a better understandi
 
     \item We give guidelines and insights drawn from our analysis to prospective applicants.
 
-\end{enumerate}
+\end{itemize}
 
 This paper is structured as follows, \Cref{sec:background} introduces
 the dataset protocol and recall important notions of GLM and GAM, which
@@ -117,7 +118,7 @@ conclude this paper.
 	    \caption{Samples of \noun{GradCafe} dataset.}
 	    \label{table:data_sample}
 	\end{table}
-	In this paper, we collect data from \textbf{GradCafe}, an online
+	In this paper, we collect data from \noun{GradCafe} \cite{GradCafe}, an online
 	sharing platform of graduate school admission results. The dataset
 	involves the following covariates:
 	\var{university}, the graduate school the applicant applied for;
@@ -131,15 +132,15 @@ conclude this paper.
 	typical entries are tabulated in \Cref{table:data_sample}.
 
 	We augment this dataset by introducing metrics examining the prestigious of the graduate
-	school. Instead of selecting from a variety of university ranking, we focus on the \noun{CSRanking},
+	school. Instead of selecting from a variety of university ranking, we focus on the \noun{CSRanking} \cite{CSR},
 	which is specifically tailored for CS research. To that end, we attach two more covariates per record,
 	namely,
 	\var{publications}, publication index, the multiplier of number of total publications with reference
 	to the lowest value;
 	\var{faculty}, the number of faculty members (not counting Emeritus faculties).
 	We note through our data exploration, these metrics, though may seem partial at first mention,
-	are consistent with the general ranking results from, for example, US News \cite{}, Times \cite{},
-	to name a few.
+	are consistent with the general college ranking results such as
+	the US News and Times.
 
 	We preprocess the dataset to select those applications made to US universities,
 	clean up invalid data, normalize the GPA on a $4.0$ scale and GRE tests
@@ -197,35 +198,45 @@ conclude this paper.
 
 
 
-\section{Methods} \label{sec:methods}
+\input{bayesian_net}
 
-    \subsection{Logistic Regression}
-
-    \input{bayesian_net}
-
-\section{Results and Model Selection} \label{sec:results}
 
 \section{Conclusions and Future Directions} \label{sec:conclusions}
 
     In this paper, we study the factors that are significant
     to the applications for CS graduate programs in the U.S.
-    We remark that, the model proposed does not account for
+    And empirically tested out several prevailed intuitions, namely,
+    the U.S. bachelor degree is favourable, especially in PhD applications.
+
+    We also noted several intrinsic defficiencies of the model, for example,
     the representativeness of the data collected. Namely,
     the data collected may be not a representative sample
-    from the unknown population; the data may be more correlated
+    from the unknown population: the data may be more correlated
     as intuitively, most failed applicants may wish not to share
-    this experience online. For the sake of completeness,
-    we remark that imposing a Bayesian model or use multilevel
-    regression and postratification (MRP) \cite{} may ameliorate
-    these issues, we are, nonetheless, content with this model
-    in this rather introductory and casual writing.
+    this experience online. Furthermore, more factors that were
+    overlooked by the proposed model due to lack of data may be
+    significant. For example, the publication record and strength of
+    reference letters of the applicant. These may be obtained by mining the
+    comments section, and we should leave it for future work.
+    For the sake of completeness,
+    we should mention that imposing multilevel
+    regression and postratification (MRP) \cite{Wang:2015:MRP} may ameliorate
+    some of the limitations. We are, nonetheless, content with this model
+    in this rather introductory and casual writing and shall, again, leave this
+    for future work.
 
+\clearpage
 {\small
 \nocite{*}
 \bibliography{report}
-\bibliographystyle{alpha}
+\bibliographystyle{ieeetr}
 }
-\ifthenelse{\equal{\final}{0}}
+\section*{Supplementary Materials}
+\begin{appendices}
+\section{Code for Reproducing the Results}
+
+    \verbatiminput{../code/bn.r}
+\end{appendices}
 
 
 \end{document}
