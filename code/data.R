@@ -20,6 +20,8 @@ raw$degree[which(raw$degree!= "PhD")] <- "MS"
 raw$major = NULL
 raw$decision = ifelse(raw$decision== "Accepted", 1, 0)
 raw$decision = as.factor(raw$decision)
+
+#split raw data to training and test data
 train_index <- sample(1:nrow(raw), 0.8 * nrow(raw))
 test_index <- setdiff(1:nrow(raw), train_index)
 
@@ -47,7 +49,7 @@ write.csv(y_test,
           row.names = FALSE,
           file = "/Users/l-c/Desktop/STAT3612-master/stat7614/dataset/gradcafe/test_y.csv")
 
-
+#make design matrx 
 
 rcp <- recipe(~., data=x_train) %>%
   #step_bs(all_numeric())%>%
@@ -67,8 +69,8 @@ x.train.bin <- bake(rcp, newdata=x_train) %>% as.data.frame()
 train.bin = cbind(y_train, x.train.bin)
 x.test.bin <- bake(rcp, newdata = x_test) %>% as.data.frame()
 
+# correlations of predictors
 library(corrplot)
-
 x_train_nu = select(x_train, which(sapply(x_train, is.numeric))) %>% na.omit()
 xcor = cor(x_train_nu)
 corrplot(xcor)
