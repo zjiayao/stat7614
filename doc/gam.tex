@@ -24,7 +24,7 @@ where $\lambda$ controls the extent to which the regression coefficients are sup
   \caption{Left: Regularization path of the lasso. Right: Binomial deviance against regularization parameter by 5-fold CV}
 \end{figure}
 
-\par The AIC of the lasso model is not given automatically by package \texttt{glmnet}. Nonetheless, the computation is tractable theoretically, as the effective degrees of freedom are shown to be the expectation of trace of active-set data matrix. For now, we will resort to AUC as an alternative assessment method. AUC for 5-fold cross validated lasso is 0.7118, smaller than that of ordinary logistic regression, which may indicate a lack of information (dimension) to tackle the problem.
+\par The AIC of the lasso model is not given automatically by package \texttt{glmnet}. Nonetheless, the computation is tractable theoretically, as the effective degrees of freedom are shown to be the expectation of trace of active-set data matrix \cite{tibshirani:2012:dflasso}. For now, we will resort to AUC as an alternative assessment method. AUC for 5-fold cross validated lasso is 0.7118, smaller than that of ordinary logistic regression, which may indicate a lack of information (dimension) to tackle the problem.
 
 \subsection{Generalized Additive Model}
 Apart from the methods described above, we can adapt more flexible techniques in the modeling of covariates, since logit transformation has been done on the response variable. In a regression setting, GAM has the form
