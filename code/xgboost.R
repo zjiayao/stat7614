@@ -1,9 +1,22 @@
-###########
-# XGBoost #
-###########
+library(recipes)
+rcp <- recipe(~., data=x_train) %>%
+  step_meanimpute(all_numeric()) %>%
+  step_dummy(all_nominal()) %>%
+  step_interact(terms=~contains("status"):contains("uni_pub") + 
+                  contains("gpa"):contains("gre") + 
+                  contains("gre"):contains("degree")
+                  ) %>%
+  prep(training=x_train)
 
-if(!require(xgboost)) install.packages("xgboost")
-if(!require(ggplot2)) install.packages("ggplot2")
+x.train.bin <- bake(rcp, newdata=x_train) %>% as.data.frame()
+train.bin = cbind(y_train, x.train.bin)
+x.test.bin <- bake(rcp, newdata = x_test) %>% as.data.frame()
+
+# correlations of predictors
+library(corrplot)
+x_train_nu = select(x_train, which(sapply(x_train, is.numeric))) %>% na.omit()
+xcor = cor(x_train_nu)
+corrplot(xcor)
 
 library(xgboost)
 library(Matrix)
@@ -73,8 +86,6 @@ test.y.xgb <- data.frame( Desision=pred.y.xgb)
 pred.xgb=prediction(pred.y.xgb,y_test)
 perf_AUC.xgb=performance(pred.xgb,"auc")
 AUC.xgb=perf_AUC.xgb@y.values[[1]] 
-
-#[1] 0.8542404
 
 # for usage of caret
 xgbGrid <- expand.grid(
