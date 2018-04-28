@@ -19,9 +19,17 @@ where $\lambda$ controls the extent to which the regression coefficients are sup
 
 \begin{figure}[htpb]
   \centering
-  \def\svgwidth{0.8\textwidth}
-  \input{figs/lasso.tex}
-  \caption{Left: Regularization path of the lasso. Right: Binomial deviance against regularization parameter by 5-fold CV}
+    \begin{subfigure}{.5\textwidth} \centering
+    %\resizebox{\textwidth}{0.5\textheight}{%
+	\input{figs/lassopath.tex}
+	\caption{Regularization path of the Lasso.}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth} \centering
+	\input{figs/lassocv.tex}
+	\caption{Binomial deviance against regularization parameter by 5-fold CV.}
+    \end{subfigure}
+	%}
+    \caption{Results of the GAM model.}
 \end{figure}
 
 \par The AIC of the lasso model is not given automatically by package \texttt{glmnet}. Nonetheless, the computation is tractable theoretically, as the effective degrees of freedom are shown to be the expectation of trace of active-set data matrix \cite{tibshirani:2012:dflasso}. For now, we will resort to AUC as an alternative assessment method. AUC for 5-fold cross validated lasso is 0.7118, smaller than that of ordinary logistic regression, which may indicate a lack of information (dimension) to tackle the problem.
