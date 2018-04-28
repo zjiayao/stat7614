@@ -1,10 +1,9 @@
-train.x <- read.csv("~/train_x.csv", header=TRUE)
-train.y <- read.csv("~/train_y.csv", header=TRUE)
-test.x <- read.csv("~/test_x.csv", header=TRUE)
-test.y <- read.csv("~/test_y.csv", header=TRUE)
+train.x <- train_x
+test.x <- text_x
+train.y <- train_y
+test.y <- text_y
 
-library(dplyr)
-
+# getting rid of rows contaning na
 train <- cbind(train.y, train.x) %>% na.omit()
 test <- cbind(train.y, train.x) %>% na.omit()
 
@@ -62,4 +61,3 @@ summary(model3.2)
 AIC(model3.1, model3.2)
 pred3 <- predict.gam(model3.1, newdata=test.x, type="response")
 auc3 <- roc(test.y, pred3)$auc
-
