@@ -16,6 +16,14 @@ Now we approach the variable selection problem again with another popular method
 \widehat{\boldsymbol{\beta}}^{\text{lasso}}=\underset{\boldsymbol{\beta}}{\arg\min}\left\{\sum_i\left[\log\left(\frac{p_i}{1-p_i}\right)-\mathbf{x}^\top\boldsymbol{\beta}-\beta_0\right]^2+\lambda\|\boldsymbol{\beta}\|_1\right\}
 \]
 where $\lambda$ controls the extent to which the regression coefficients are suppressed. In particular, the lasso, as opposed to ridge regression with penalty laid on the $L_2$-norm, has a variable selection power.
+
+\begin{figure}[htpb]
+  \centering
+  \def\svgwidth{0.8\textwidth}
+  \input{figs/lasso.tex}
+  \caption{Left: Regularization path of the lasso. Right: Binomial deviance against regularization parameter by 5-fold CV}
+\end{figure}
+
 \par The AIC of the lasso model is not given automatically by package \texttt{glmnet}. Nonetheless, the computation is tractable theoretically, as the effective degrees of freedom are shown to be the expectation of trace of active-set data matrix. For now, we will resort to AUC as an alternative assessment method. AUC for 5-fold cross validated lasso is 0.7118, smaller than that of ordinary logistic regression, which may indicate a lack of information (dimension) to tackle the problem.
 
 \subsection{Generalized Additive Model}
