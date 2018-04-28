@@ -16,7 +16,6 @@
 \author{
     Chen~Liu\thanks{Indicates equal contribution.},~~Zehao~Su\samethanks{},~~and~Jiayao~Zhang\samethanks{}\\
     University of Hong Kong\\
-    Pokfulam, Hong Kong\\
     \texttt{\{liuchen,taylorsu,zjohnson\}@connect.hku.hk}\\
 }
 
@@ -35,22 +34,22 @@
     by these observations, the authors, consisting of a data-driven earth scientist, a computational biologist,
      and a machine learning researcher, study the factors governing the
     admissions of graduate schools in the U.S. by means of \noun{Generalized Linear Models} (GLM),
-    \noun{Generalized Additive Models} (GAM), distribution-free methods such as \noun{Ensemble Learning} (EL) and
+    \noun{Generalized Additive Models} (GAM), distribution-free methods such as \noun{Ensemble Learning} (EL), and
     \noun{Discrete Bayesian Networks} (DBN).
     We seek answers to several interesting questions and
     render crisp insights from the model inference and analysis.
-    We conclude this paper by providing guidelines for future graduate schools
-    applicants, identifying limitations that are not addressed by this paper
+    We hope this paper may inspire future graduate schools
+    applicants. We finally conclude this paper by identifying limitations that are not addressed by this paper
     and pointing out several possible future directions.
 \end{abstract}
 
 \section{Introduction}
 
 We study the admission results of applications for CS graduate school in the U.S. We obtain data from \noun{GradCafe} \cite{GradCafe} and
-\noun{CSRankings} \cite{CSR}. In this paper, we study the factors governing the decision made through GLM, GAM and EL.
+\noun{CSRankings} \cite{CSR}. We study the factors governing the decision made through GLM, GAM and EL.
 We further explore the dependency relationship
-among the data by way of discrete Bayesian network.
-Through the study outlined in this paper, we aim at seeking a better understanding of graduate school applications in CS related subjects. We summarize our contribution as follows:
+among the data by way of DBN.
+Through the study outlined in this paper, we aim at seeking a better understanding of graduate school applications in CS related subjects. We summarize our contributions as follows:
 
 \begin{itemize}
     \item We give a systematic study of the data available on \noun{GradCafe} \cite{GradCafe}.
@@ -87,9 +86,9 @@ include a sketchy mention of the limitations and future directions as we
 conclude this paper.
 
 
-\section{Background on Data Acquisition and Exploration} \label{sec:background}
+\section{Background on Data Acquisition, Processing and Exploration} \label{sec:background}
 
-\begin{figure}[h]
+\begin{figure}[tbp]
     \centering
     \begin{subfigure}{.5\linewidth}\centering
 	\includegraphics[width=\textwidth]{gpa.eps}
@@ -125,7 +124,7 @@ conclude this paper.
 	    \caption{Samples of \noun{GradCafe} dataset.}
 	    \label{table:data_sample}
 	\end{table}
-	In this paper, we collect data from \noun{GradCafe} \cite{GradCafe}, an online
+	In this paper, we collect data from \noun{GradCafe} \cite{GradCafe,GradCafeData}, an online
 	sharing platform of graduate school admission results. The dataset
 	involves the following covariates:
 	\var{university}, the graduate school the applicant applied for;
@@ -160,9 +159,9 @@ conclude this paper.
 	we have $21209$ records from the applications ranging from $2011$ to $2015$.
 	Noted some records
 	may miss certain metrics such as GPA. In that case, our model ignore the very entries for parameter
-	estimation. A short summary of the cleaned dataset is given in \Cref{table:data_summary:quant,table:data_summary:cat}. We also plot the histogram of several selected covariates in \Cref{fig:dataset}.
+	estimation. A short summary of the cleaned dataset is given in \Cref{table:data_summary:quant,table:data_summary:cat}. We also plot the histogram of several selected covariates in \Cref{fig:dataset}. \Cref{fig: corr} displays the correlation between the selected numeric predictors. 
 
-	\begin{table}[htpb]
+	\begin{table}[tpb]
 	    \centering
 	    \begin{tabular}{|c|c|c|c|c|c|}
 		\hline
@@ -208,6 +207,12 @@ conclude this paper.
 	    \label{table:data_summary:cat}
 	\end{table}
 
+	\begin{figure}[htb]
+	    \centering 
+	\includegraphics[width = 0.6\linewidth]{corr.pdf}
+	    \caption{The correlation plot of selected numeric predictors. }
+	    \label{fig: corr}
+	\end{figure}
 
 \input{gam}
 
@@ -223,10 +228,11 @@ conclude this paper.
     And empirically tested out several prevailed intuitions, namely,
     the U.S. bachelor degree is favourable, especially in PhD applications.
 
-    \par We now attempt to some question raised in the beginning of this report:
+    \par We now attempt to answer the questions raised in the beginning of this papaer:
 
      \begin{itemize}
-    \item \emph{What are the significant covariates that impact the application results?} Among all predictors studies in our
+    \item \emph{What are the significant covariates that impact the application results?}
+	Among all predictors studies in our
     data set, origin of the applicants (\texttt{status}) and which program to apply for (\texttt{degree}) contribute most to
     the decision in GAM and BN. Interestingly, the method of reception of application result also alludes, to a large extent,
     the decision of admission. Reception of a phone call from the institute implies a higher chance of being admitted.
@@ -234,13 +240,17 @@ conclude this paper.
     (\texttt{uni\_pub} and \texttt{uni\_faculty}).
 
 	\item \emph{Do GPA and standard test scores affects the application results differently for MS
-		    and PhD applicants?} Referring to the logistic regression fitted, interaction effects between
+		    and PhD applicants?}
+	    Referring to the logistic regression fitted, interaction effects between
 		    \texttt{degree:gpa} and \texttt{degree:gre} are not statistically significant under 5\% significance
-		    level, which suggests no difference in results for MS/PhD application.
+		    level, which suggests there is no statistically significant difference in results for MS/PhD application.
 
-	\item \emph{Does possessing a U.S. Bachelor degree significantly increases the likelihood of being admitted?} Again,
+	\item \emph{Does possessing a U.S. Bachelor degree significantly increases the likelihood of being admitted?}
+	    Again,
 	the effect is significant, but its numeric influence does not stand out among other predictors, such as
-	\texttt{degree}.
+	\texttt{degree}. We there cautiously remark that posessing a U.S. Bachelor degree is significant
+	     among the covariates considered but may only have a limited impact. As such, the international
+	     applicants may not be too frustrated about this.
     \end{itemize}
 
     We also noted several intrinsic defficiencies of the model, for example,
@@ -260,7 +270,6 @@ conclude this paper.
     in this rather introductory and casual writing and shall, again, leave this
     for future work.
 
-\clearpage
 {\small
 \nocite{*}
 \bibliography{report}
@@ -269,10 +278,10 @@ conclude this paper.
 \section*{Supplementary Materials}
 \begin{appendices}
 \section{Code for Reproducing the Results}
-    \verbatiminput{../code/data.R}
-    \verbatiminput{../code/gam.R}
-    \verbatiminput{../code/bn.r}
-    \verbatiminput{../code/xgboost.R}
+    \lstinputlisting{code/data.R}
+    \lstinputlisting{code/gam.R}
+    \lstinputlisting{code/xgboost.R}
+    \lstinputlisting{code/bn.r}
 \end{appendices}
 
 

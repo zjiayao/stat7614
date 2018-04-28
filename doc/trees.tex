@@ -3,7 +3,7 @@ In this section, we explored the tree-based ensemble learners.
 \subsection{Random Forests} \label{sub: rf}
 The essential idea in bagging is to average many noisy but approximately unbiased models, since trees is of instability due to its the hierarchical nature. However, if each tree generated in bagging is identically distributed but not necessarily independent, the correlation of the pairs of bagged trees would limit the benefits of averaging. Random Forest decorrelate the trees via split-variable randomization. Besides, Random Forest does not increase the variance too much, which is achieved through the random selection of split predictors \cite{Friedman:2001:ESL}.\\ 
 For \noun{GradCafe} dataset, natural splines of the numeric predictors significantly improve the performance of Random Forests, according to the metric, AUC. 
-\begin{table}[h]
+\begin{table}[tpb]
     \centering
     \begin{tabular}{|c|c|c|}
       \hline 
@@ -21,7 +21,7 @@ For \noun{GradCafe} dataset, natural splines of the numeric predictors significa
 \end{table}
 By 5-fold cross validation with the metric AUC, the value of tuning parameters are chosen as shown in the Table \ref{tab:rf}. \\
 Figure \ref{fig: xgb} displays the variable importance for each of the predictor variables. \var{uni\_pub}, \var{decision\_month}, and \var{uni\_faculty} are predominantly relevant with the result of application. \var{GRE} and \var{GPA} have roughly half relevance of \var{uni\_pub}, whereas others do not show strong relevance. The AUC of training set is 0.8361. 
-\begin{figure}[htb]
+\begin{figure}[tbp]
     \centering
     \begin{subfigure}{.5\linewidth}
 	\centering
@@ -46,7 +46,7 @@ The design matrix is made by using R library, \var{recipe} in the similar as men
 After evaluating the variable importance, we selected following interaction terms, including interactions between \var{status} and \var{uni\_pub}, \var{gpa} and \var{gre}, as well as \var{gre} and \var{degree}. 
 By 5-fold cross validation with the metric AUC, the tuning parameters are chosen as shown in \Cref{tab:xgbpar}.
 
-\begin{table}[h]
+\begin{table}[tpb]
     \centering
     \begin{tabular}{|c|c|c|}
    \hline 

@@ -17,22 +17,19 @@ Now we approach the variable selection problem again with another popular method
 \end{align}
 where $\lambda$ controls the extent to which the regression coefficients are suppressed. In particular, the lasso, as opposed to ridge regression with penalty laid on the $L_2$-norm, has a variable selection power. \Cref{lassopath} shows the regularization path of $\boldsymbol{\beta}$ along its corresponding $L_1$-norm, where each line represents the numerical value of regression coefficient of one predictor. The optimal choice of $\lambda$ is attained by 5-fold cross valication (CV) scheme, whose binomial deviance lies upper one standard error of the minimum choice, as shown in \Cref{lassocv}.
 
-\begin{figure}[htpb]
+\begin{figure}[tpb]
   \centering
-    \begin{subfigure}{.5\textwidth} \centering
-    \resizebox{\textwidth}{!}{%
+    \begin{subfigure}[t]{.5\textwidth} \centering
+	\resizebox{\textwidth}{!}{%
 	\input{figs/lassopath.tex}}
-	\caption{Regularization path of the Lasso. Lines with different colours correspond to different covariates.}
-	\label{lassopath}
+	\caption{Regularization path of the Lasso. Lines with different colours correspond to different covariates.} \label{lassopath}
     \end{subfigure}%
-    \begin{subfigure}{.5\textwidth} \centering
+    \begin{subfigure}[t]{.5\textwidth} \centering
 	\resizebox{\textwidth}{!}{%
 	    \input{figs/lassocv.tex}}
-	\caption{Binomial deviance against regularization parameter by 5-fold CV. }
-	\label{lassocv}
+	\caption{Binomial deviance against regularization parameter by 5-fold CV.} \label{lassocv}
     \end{subfigure}
-	%}
-    \caption{Results of the GAM model.}
+    \caption{Results of the GAM.}
 \end{figure}
 
 \par The AIC of the lasso model is not given automatically by package \texttt{glmnet}. Nonetheless, the computation is tractable theoretically, as the effective degrees of freedom are shown to be the expectation of trace of active-set data matrix \cite{tibshirani:2012:dflasso}. For now, we will resort to AUC as an alternative assessment method. AUC for 5-fold cross validated lasso is 0.7118, smaller than that of ordinary logistic regression, which may indicate a lack of information (dimension) to tackle the problem.
@@ -59,10 +56,17 @@ NCS is, in fact, ordinary cubic splines with additional constraints on boundary 
 for fixed $x$, where $\delta_x=\underset{x_i\in \mathcal{N}(x)}{\max}|x-x_i|$ denotes the diameter of the neighborhood. Then, estimation of fitted values is carried out by traversing the whole linear space. AUC of loess regression (with \texttt{span=0.2}) embedded in the context of GAM is 5570.2. Altering the levels of \texttt{span} does not change much the resulted AIC.
 \par We now compute the AUC of the model fitted with NCS, which has a smaller AIC, as 0.7286, which is superior to logistic regression. However, interpretability is hurt for predictors expanded by NCS. Hence, we will only elaborate a few preliminary but interesting findings from the logistic regression. 
 
-\par Here, we omit insignificant levels of categorical predictors for easier analysis. The acceptance rate for \texttt{PhD} application is significantly lower than that for \texttt{MS}. Results released through \texttt{Phone} are more likely to be an offer rather than a rejection letter, followed by \texttt{Email} and \texttt{Website}. This makes sense because important and urgent decisions are often transmitted though more efficient and effective communication tools. U.S. students have a bigger chance to get admitted, compared to students from other backgrounds. While this might be the case, it is worth noticing that international students who apply for \texttt{PhD} degrees has the best shot of admission. Candidates who has higher \texttt{gpa} and \texttt{gre} scores are preferred. Moreover, it is more difficult to secure a place in universities with higher rankings, as anticipated, and those with more faculty members tend to take in more applicants.
-\begin{tabular}
+\par Here, we omit insignificant levels of categorical predictors for easier analysis. The acceptance rate for \texttt{PhD} application is significantly lower than that for \texttt{MS}. Results released through \texttt{Phone} are more likely to be an offer rather than a rejection letter, followed by \texttt{Email} and \texttt{Website}. This makes sense because important and urgent decisions are often transmitted though more efficient and effective communication tools. U.S. students have a bigger chance to get admitted, compared to students from other backgrounds. While this might be the case, it is worth noticing that,
+counterintuitively, international students who apply for \texttt{PhD} degrees has the best shot of admission
+(noted the magnitude of the interaction term).
+This is not inline with the general perception and experience. One possible explanation is that the dataset
+may be not very representative in that the many international applicants may be not very familiar with
+\noun{GradCafe}, and may not be willing to post an entry if the applicant is not successful. Hence,
+we cautiously leave the test for this hypothesis for future work when more representative data are available.
+Candidates who has higher \texttt{gpa} and \texttt{gre} scores are preferred. Moreover, it is more difficult to secure a place in universities with higher rankings, as anticipated, and those with more faculty members tend to take in more applicants.
+\begin{table}
 \centering
-\begin{table}{l|ccc}
+\begin{tabular}{l|ccc}
 \hline
 Effect & Estimate & Std. Error & \textit{p}-value \\
 \hline

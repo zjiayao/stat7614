@@ -1,0 +1,106 @@
+\begin{thebibliography}{10}
+
+\bibitem{Silver:2016:Go}
+David Silver, Aja Huang, Chris~J Maddison, Arthur Guez, Laurent Sifre, George
+  Van Den~Driessche, Julian Schrittwieser, Ioannis Antonoglou, Veda
+  Panneershelvam, Marc Lanctot, et~al.
+\newblock Mastering the game of go with deep neural networks and tree search.
+\newblock {\em nature}, 529(7587):484--489, 2016.
+
+\bibitem{Manning:2014:NLP}
+Christopher Manning, Mihai Surdeanu, John Bauer, Jenny Finkel, Steven Bethard,
+  and David McClosky.
+\newblock The stanford corenlp natural language processing toolkit.
+\newblock In {\em Proceedings of 52nd annual meeting of the association for
+  computational linguistics: system demonstrations}, pages 55--60, 2014.
+
+\bibitem{Alex:2012:AlexNet}
+Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In {\em Advances in neural information processing systems}, pages
+  1097--1105, 2012.
+
+\bibitem{LeCun:2015:DL}
+Yann LeCun, Yoshua Bengio, and Geoffrey Hinton.
+\newblock Deep learning.
+\newblock {\em nature}, 521(7553):436, 2015.
+
+\bibitem{Bonneau:2015:SOK}
+Joseph Bonneau, Andrew Miller, Jeremy Clark, Arvind Narayanan, Joshua~A Kroll,
+  and Edward~W Felten.
+\newblock Sok: Research perspectives and challenges for bitcoin and
+  cryptocurrencies.
+\newblock In {\em Security and Privacy (SP), 2015 IEEE Symposium on}, pages
+  104--121. IEEE, 2015.
+
+\bibitem{Cock:2009:BioPy}
+Peter~JA Cock, Tiago Antao, Jeffrey~T Chang, Brad~A Chapman, Cymon~J Cox,
+  Andrew Dalke, Iddo Friedberg, Thomas Hamelryck, Frank Kauff, Bartek
+  Wilczynski, et~al.
+\newblock Biopython: freely available python tools for computational molecular
+  biology and bioinformatics.
+\newblock {\em Bioinformatics}, 25(11):1422--1423, 2009.
+
+\bibitem{Saeys:2007:Bio}
+Yvan Saeys, I{\~n}aki Inza, and Pedro Larra{\~n}aga.
+\newblock A review of feature selection techniques in bioinformatics.
+\newblock {\em bioinformatics}, 23(19):2507--2517, 2007.
+
+\bibitem{Atzori:2010:IOT}
+Luigi Atzori, Antonio Iera, and Giacomo Morabito.
+\newblock The internet of things: A survey.
+\newblock {\em Computer networks}, 54(15):2787--2805, 2010.
+
+\bibitem{Rag:2010:GRAD}
+Karthik Raghunathan.
+\newblock Demystifying the american graduate admissions process.
+\newblock In {\em Web}, 2010.
+
+\bibitem{GradCafe}
+GradCafe.
+\newblock The grad cafe: Graduate school admission results.
+\newblock \url{https://www.thegradcafe.com/}.
+
+\bibitem{CSR}
+Various Authors.
+\newblock {C}{S}{R}ankings: Computer science rankings.
+\newblock \url{https://www.csrankings.org/}.
+
+\bibitem{GradCafeData}
+Das Debarghya.
+\newblock Gradcafe data.
+\newblock \url{https://github.com/deedy/gradcafe_data/}.
+
+\bibitem{Friedman:2001:ESL}
+Jerome Friedman, Trevor Hastie, and Robert Tibshirani.
+\newblock {\em The elements of statistical learning}, volume~1.
+\newblock Springer series in statistics New York, 2001.
+
+\bibitem{tibshirani:2012:dflasso}
+Ryan~J Tibshirani, Jonathan Taylor, et~al.
+\newblock Degrees of freedom in lasso problems.
+\newblock {\em The Annals of Statistics}, 40(2):1198--1232, 2012.
+
+\bibitem{chen:2016:xgboost}
+Tianqi Chen and Carlos Guestrin.
+\newblock Xgboost: A scalable tree boosting system.
+\newblock In {\em Proceedings of the 22nd acm sigkdd international conference
+  on knowledge discovery and data mining}, pages 785--794. ACM, 2016.
+
+\bibitem{Tsa:2006:HC}
+Ioannis Tsamardinos, Laura~E Brown, and Constantin~F Aliferis.
+\newblock The max-min hill-climbing bayesian network structure learning
+  algorithm.
+\newblock {\em Machine learning}, 65(1):31--78, 2006.
+
+\bibitem{Wang:2015:MRP}
+Wei Wang, David Rothschild, Sharad Goel, and Andrew Gelman.
+\newblock Forecasting elections with non-representative polls.
+\newblock {\em International Journal of Forecasting}, 31(3):980--991, 2015.
+
+\bibitem{Christopher:2016:PRML}
+M~Bishop Christopher.
+\newblock {\em Pattern Recognition and Machine Learning}.
+\newblock Springer-Verlag New York, 2006.
+
+\end{thebibliography}

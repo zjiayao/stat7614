@@ -17,9 +17,11 @@ test.y <- test[,1]
 library(MASS)
 model1.1 <- glm(decision~1, data=train, family="binomial")
 model1.2 <- glm(decision~., data=train, family="binomial")
-model1.3 <- stepAIC(model1.1, direction="forward", scope=list(upper=model1.2, lower=model1.1))
+model1.3 <- stepAIC(model1.1, direction="forward",
+		    scope=list(upper=model1.2, lower=model1.1))
 summary(model1.3)
-model1.4 <- glm(decision~.+degree:status+degree:gpa+degree:gre, data=train, family="binomial")
+model1.4 <- glm(decision~.+degree:status+degree:gpa+degree:gre,
+		data=train, family="binomial")
 summary(model1.4)
 model1.5 <- glm(decision~.+degree:status, data=train, family="binomial")
 summary(model1.5)
@@ -34,14 +36,16 @@ auc1 <- roc(test.y, pred1)$auc
 # lasso
 library(glmnet)
 dummies <- model.matrix(decision~.+degree:status, data=train)
-model2 <- cv.glmnet(x=dummies[,-1], y=train.y, family="binomial", alpha=1, nfolds=5)
+model2 <- cv.glmnet(x=dummies[,-1], y=train.y, family="binomial",
+		    alpha=1, nfolds=5)
 tikz('~/lasso.tex', width = 4, height = 8)
 par(mfrow=c(1,2))
 plot(model2)
 plot(model2$glmnet.fit)
 dev.off()
 dummies <- model.matrix(decision~.+degree:status, data=test)
-pred2 <- predict.cv.glmnet(model2, newx=dummies[,-1], s="lambda.1se", type="response")
+pred2 <- predict.cv.glmnet(model2, newx=dummies[,-1],
+			   s="lambda.1se", type="response")
 auc2 <- roc(test.y, as.numeric(pred2))$auc
 
 # gam

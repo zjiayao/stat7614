@@ -8,6 +8,7 @@
 \usepackage{microtype}      % microtypography
 \usepackage{epsfig}
 \usepackage{color}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{parskip}
 \usepackage{ifthen}
 \usepackage{float}
@@ -34,5 +35,20 @@
 \usepackage{multirow}
 \usepackage{appendix}
 \usepackage{tikz}
+\hypersetup{
+    colorlinks,
+    linkcolor={Black},
+    citecolor={Sepia},
+    urlcolor={BlueViolet}
+}
+
+\usepackage{listings}
+\lstset{columns=fullflexible,
+basicstyle={\ttfamily},
+language={R},
+keywordstyle={\color{NavyBlue}},
+stringstyle={\color{Brown}},
+commentstyle={\color{CadetBlue}}}
+\renewcommand{\lstlistingname}{Listing}
 % Attempt to make hyperref and algorithmic work together better:
 \newcommand{\theHalgorithm}{\arabic{algorithm}}

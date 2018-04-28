@@ -10,8 +10,8 @@ raw$gre_quant = NULL
 raw$gre_writing <- NULL
 raw$post_data <- NULL
 raw$post_timestamp <- NULL
-raw$decision_month <- as.Date.POSIXct(raw$decision_timestamp) %>% format(format="%m") %>%
-  as.factor()
+raw$decision_month <- as.Date.POSIXct(raw$decision_timestamp)
+    %>% format(format="%m") %>% as.factor()
 raw$decision_timestamp <- NULL
 raw$decision_date <- NULL
 raw$decision_method[which(raw$decision_method=="Postal Service")] <- "Other"
