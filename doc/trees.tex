@@ -65,6 +65,6 @@ By 5-fold cross validation with the metric AUC, the tuning parameters are chosen
     \label{tab:xgbpar}
 \end{table}
 
-\Cref{fig: xgb} displays the variable importance for each of the predictor variables. Similar to random forests, \var{publications} and \var{faculty} are the two most relevant predictors. \var{decision\_month} has the third high relevance with them, which is consistent with GLM and GAM. The interaction between \var{gpa} and \var{gre} has roughly half the relevance of \var{decision\_month}, even  higher relevance of \var{gpa} and \var{gre}, whereas the others are somewhat less influential.
+\Cref{fig: xgb} displays the variable importance for each of the predictor variables. Similar to random forests, \var{publications} and \var{faculty} are the two most relevant predictors. \var{decision\_month} has the third high relevance with them, which is consistent with GLM and GAM. The interaction between \var{gpa} and \var{gre} has roughly half the relevance of \var{decision\_month}, even  higher relevance of \var{gpa} and \var{gre}, whereas the others are somewhat less influential. 
 
 One important purpose of model fitting is to classify new data. The model performance with the binomial response in \noun{GradCafe} is measured by AUC. The AUC of XGBoost prediction is 0.8542 on the test data.
