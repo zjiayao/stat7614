@@ -23,13 +23,13 @@ By 5-fold cross validation with the metric AUC, the value of tuning parameters a
 Figure \ref{fig: rf} displays the variable importance for each of the predictor variables. \var{uni\_pub}, \var{decision\_month}, and \var{uni\_faculty} are predominantly relevant with the result of application. \var{GRE} and \var{GPA} have roughly half relevance of \var{uni\_pub}, whereas others do not show strong relevance. The AUC of training set is 0.8361. 
 \begin{figure}[tbp]
     \centering
-    \begin{subfigure}{.5\linewidth}
+    \begin{subfigure}{.48\linewidth}
 	\centering
 	\includegraphics[width = \linewidth]{RF.pdf}
 	\caption{Variable importace plots for the classification random forest grown on the \textbf{GradCafe} data.}
 	\label{fig:rf}
     \end{subfigure}%
-    \begin{subfigure}{.5\linewidth}
+    \begin{subfigure}{.48\linewidth}
     \centering
     \includegraphics[width = \linewidth]{xgboost.pdf}
     \caption{The predictor variable importance in descending order for \textbf{GradCafe} dataset using XGBoost.}
