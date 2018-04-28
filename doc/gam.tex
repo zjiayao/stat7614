@@ -15,7 +15,7 @@ Now we approach the variable selection problem again with another popular method
 \begin{align}
 \widehat{\boldsymbol{\beta}}^{\text{lasso}}=\underset{\boldsymbol{\beta}}{\arg\min}\left\{\sum_i\left[\log\left(\frac{p_i}{1-p_i}\right)-\mathbf{x}^\top\boldsymbol{\beta}-\beta_0\right]^2+\lambda\|\boldsymbol{\beta}\|_1\right\}
 \end{align}
-where $\lambda$ controls the extent to which the regression coefficients are suppressed. In particular, the lasso, as opposed to ridge regression with penalty laid on the $L_2$-norm, has a variable selection power.
+where $\lambda$ controls the extent to which the regression coefficients are suppressed. In particular, the lasso, as opposed to ridge regression with penalty laid on the $L_2$-norm, has a variable selection power. \Cref{lassopath} shows the regularization path of $\boldsymbol{\beta}$ along its corresponding $L_1$-norm, where each line represents the numerical value of regression coefficient of one predictor. The optimal choice of $\lambda$ is attained by 5-fold cross valication (CV) scheme, whose binomial deviance lies upper one standard error of the minimum choice, as shown in \Cref{lassocv}.
 
 \begin{figure}[htpb]
   \centering
@@ -23,11 +23,13 @@ where $\lambda$ controls the extent to which the regression coefficients are sup
     \resizebox{\textwidth}{!}{%
 	\input{figs/lassopath.tex}}
 	\caption{Regularization path of the Lasso. Lines with different colours correspond to different covariates.}
-    \end{subfigure}%
+	\label{lassopath}
+    \end{subfigure}%
     \begin{subfigure}{.5\textwidth} \centering
 	\resizebox{\textwidth}{!}{%
 	    \input{figs/lassocv.tex}}
-	\caption{Binomial deviance against regularization parameter by 5-fold CV.}
+	\caption{Binomial deviance against regularization parameter by 5-fold CV. }
+	\label{lassocv}
     \end{subfigure}
 	%}
     \caption{Results of the GAM model.}
@@ -58,9 +60,9 @@ for fixed $x$, where $\delta_x=\underset{x_i\in \mathcal{N}(x)}{\max}|x-x_i|$ de
 \par We now compute the AUC of the model fitted with NCS, which has a smaller AIC, as 0.7286, which is superior to logistic regression. However, interpretability is hurt for predictors expanded by NCS. Hence, we will only elaborate a few preliminary but interesting findings from the logistic regression. 
 
 \par Here, we omit insignificant levels of categorical predictors for easier analysis. The acceptance rate for \texttt{PhD} application is significantly lower than that for \texttt{MS}. Results released through \texttt{Phone} are more likely to be an offer rather than a rejection letter, followed by \texttt{Email} and \texttt{Website}. This makes sense because important and urgent decisions are often transmitted though more efficient and effective communication tools. U.S. students have a bigger chance to get admitted, compared to students from other backgrounds. While this might be the case, it is worth noticing that international students who apply for \texttt{PhD} degrees has the best shot of admission. Candidates who has higher \texttt{gpa} and \texttt{gre} scores are preferred. Moreover, it is more difficult to secure a place in universities with higher rankings, as anticipated, and those with more faculty members tend to take in more applicants.
-\begin{table}
+\begin{tabular}
 \centering
-\begin{tabular}{l|ccc}
+\begin{table}{l|ccc}
 \hline
 Effect & Estimate & Std. Error & \textit{p}-value \\
 \hline
