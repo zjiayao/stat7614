@@ -34,8 +34,10 @@
     schools has been elevated to an unprecedented new height \cite{Rag:2010:GRAD}. In this paper, motivated
     by these observations, the authors, consisting of a data-driven earth scientist, a computational biologist,
      and a machine learning researcher, study the factors governing the
-    admissions of graduate schools in the U.S. by means of general linear
-    models (GLM) and general additive models (GAM). We seek answers to several interesting questions and
+    admissions of graduate schools in the U.S. by means of \noun{general linear models} (GLM),
+    \noun{general additive models} (GAM), \noun{nonparametric methods} such as ensemble learning and
+    \noun{Discrete Bayesian Networks} (DBN).
+    We seek answers to several interesting questions and
     render crisp insights from the model inference and analysis.
     We conclude this paper by providing guidelines for future graduate schools
     applicants, identifying limitations that are not addressed by this paper
@@ -44,8 +46,10 @@
 
 \section{Introduction}
 
-\note{To be further extended.}
-
+We study the admission results of applications for CS graduate school in the U.S. We obtain data from \noun{GradCafe} \cite{GradCafe} and
+\noun{CSRankings} \cite{CSR}. In this paper, we study the factors governing the decision made through GLM and GAM, we compare the results
+learnt through canonical nonparametric learning methods including ensemble methods and boosting. We further explore the dependency relationship
+among the data by way of discrete Bayesian network.
 Through the study outlined in this paper, we aim at seeking a better understanding of graduate school applications in CS related subjects. We summarize our contribution as follows:
 
 \begin{itemize}
@@ -135,7 +139,7 @@ conclude this paper.
 	school. Instead of selecting from a variety of university ranking, we focus on the \noun{CSRanking} \cite{CSR},
 	which is specifically tailored for CS research. To that end, we attach two more covariates per record,
 	namely,
-	\var{publications}, publication index, the multiplier of number of total publications with reference
+	\var{uni\_pub}, the university publication index as the multiplier of number of total publications with reference
 	to the lowest value;
 	\var{faculty}, the number of faculty members (not counting Emeritus faculties).
 	We note through our data exploration, these metrics, though may seem partial at first mention,
@@ -159,7 +163,7 @@ conclude this paper.
 		\var{gre\_verbal} & $7078$ & $130.0$ & $157.8$ & $158.0$ & $170.0$ \\\hline
 		\var{gre\_quant} & $7078$ & $131.0$ & $163.9$ & $166.0$ & $170.0$ \\\hline
 		\var{gre\_writing} & $6873$ & $2.00$ & $3.89$ & $4.00$ & $6.00$ \\\hline
-		\var{publication} & all & $1.00$ & $6.38$ & $5.40$ & $18.10$ \\\hline
+		\var{uni\_pub} & all & $1.00$ & $6.38$ & $5.40$ & $18.10$ \\\hline
 		\var{faculty} & all & $2$ & $53$ & $50$ & $152$ \\\hline
 	    \end{tabular}
 	    \caption{Summary for Quantitative Covariates.}
@@ -229,7 +233,7 @@ conclude this paper.
 {\small
 \nocite{*}
 \bibliography{report}
-\bibliographystyle{ieeetr}
+\bibliographystyle{unsrt}
 }
 \section*{Supplementary Materials}
 \begin{appendices}
