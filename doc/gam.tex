@@ -1,0 +1,41 @@
+\section{Generalized Additive Model}
+In this section, we explore one of the most intuitive methods of fitting a binary-response data set. General additive models (GAM) are a natural extension of generalized linear models (GLM), which accept response(s) distributed as a member of the exponential family through the use of link function, by allowing covariates to be modeled with both parametric specifications and nonparametric techniques.
+\subsection{Logistic Regression}
+To start with, we consider a canonical logistic regression, whose performance, evaluated by area under the receiver operating characteristic curve (AUC), will be regarded as a benchmark for the project. The value of AUC ranges from 0 to 1, depending on the discriminating power of each model. A larger AUC value indicates better separation of the data, while a value equal to 0.5 implies the model does no better than simply tossing a coin.
+\par Parameterization of a good-old logistic regression model is specified below.
+\[
+\log\left(\frac{p}{1-p}\right)=\mathbf{x}^\top\boldsymbol{\beta}+\beta_0
+\]
+where $p=P(Y=1)$ is the probability of the candidate being accepted by the school, and $\mathbf{x}$ is a vector of predictors, which can be either numerical and categorical. 
+\par Forward selection is a greedy approach of variable selection by including one independent variable which helps explain the most deviance. This procedure, based on Alkaike's Information Criteria (AIC), measures goodness-of-fit using a penalized maximum likelihood, imposing greater penalty on models with higher complexity. The result suggests a model including all predictors (AIC=5574.28).
+\par One may also be interested in whether the two types of degrees have different requirements or selection criteria for candidates with the same academic merits and/or applying under the same category. Based on this motivation, three interaction effects (\texttt{degree:status}, \texttt{degree:gpa} and \texttt{degree:gre}) are consequently added to the model fitted above. However, only \texttt{degree:status} has a significant effect under 5\% level of significance. The inclusion of such effect can be further supported by the AIC statistic, which is brought down to 5570.2. The AUC on test data set is evaluated as 0.716.
+
+\subsection{The Lasso}
+Now we approach the variable selection problem again with another popular method, the lasso, which is a shrinkage method of the regression coefficients by putting a constraint on the $L_1$-norm of $\boldsymbol{\beta}$. The parameter estimate can be written as the solution to an optimization problem.
+\[
+\widehat{\boldsymbol{\beta}}^{\text{lasso}}=\underset{\boldsymbol{\beta}}{\arg\min}\left\{\sum_i\left[\log\left(\frac{p_i}{1-p_i}\right)-\mathbf{x}^\top\boldsymbol{\beta}-\beta_0\right]^2+\lambda\|\boldsymbol{\beta}\|_1\right\}
+\]
+where $\lambda$ controls the extent to which the regression coefficients are suppressed. In particular, the lasso, as opposed to ridge regression with penalty laid on the $L_2$-norm, has a variable selection power.
+\par The AIC of the lasso model is not given automatically by package \texttt{glmnet}. Nonetheless, the computation is tractable theoretically, as the effective degrees of freedom are shown to be the expectation of trace of active-set data matrix. For now, we will resort to AUC as an alternative assessment method. AUC for 5-fold cross validated lasso is 0.7118, smaller than that of ordinary logistic regression, which may indicate a lack of information (dimension) to tackle the problem.
+
+\subsection{Generalized Additive Model}
+Apart from the methods described above, we can adapt more flexible techniques in the modeling of covariates, since logit transformation has been done on the response variable. In a regression setting, GAM has the form
+\[
+\log\left(\frac{p}{1-p}\right)=\alpha+f_1(x_1)+f_2(x_2)+\dots+f_p(x_p)
+\]
+for a model of $p$ predictors. Here, we define $f_i$'s as any unspecified functions whose forms are yet to be decided either parametrically or nonparametrially. 
+\par Basis expansion is one of the possibilities of data augmentation for capturing non-linear relationship between the predictors and transformed response. A natural cubic spline (NCS) with $K$ nodes ($\tau_1<\tau_2<\dots<\tau_K$) can be represented by, in total, $K$ parametric basis functions.
+\[
+f_1(x)=1,\quad f_2(x)=x, \quad f_{k+2}(x)=d_k(x)-d_{K-1}(x)
+\]
+where
+\[
+d_{k}=\frac{(x-\tau_k)^3_+-(x-\tau_K)^3_+}{\tau_K-\tau_k},\quad k=1,\dots,K.
+\]
+NCS are, in fact, ordinary cubic splines with additional constraints on boundary nodes, which assert linearity beyond the range of observed data. This assumption is valid in that cubic splines usually inflate drastically around the boundaries, as little information is available in that region. Categorical variables cannot be modeled by splines and are left as ordinary predictors. The model fitted by integrating NCS (with 3 knots) with GLM gives AIC=5493.7. Under 5\% level of significance, all predictors should be retained in the model.
+\par Other than parametric modeling, there have been several nonparametric statistical tools which aim at delineating the relationship between the dependent and independent variables in a more flexible manner. One of the most famous techniques is called the locally weighted scatterplot smoothing (LOESS) regression. It takes data points in a neighborhood $\mathcal{N}(x)$ centered at current $x$ and use weighed least square to minimize
+\[
+\sum_{i, x_i\in \mathcal{N}(x)}\left[\log\left(\frac{p_i}{1-p_i}\right)-\beta_0-\beta_1(x_i-x)\right]^2W\left(\frac{|x-x_i|}{\delta_x}\right)
+\]
+for fixed $x$, where $\delta_x=\underset{x_i\in \mathcal{N}(x)}{\max}|x-x_i|$ denotes the diameter of the neighborhood. Then, estimation of fitted values is carried out by traversing the whole linear space. AUC of loess regression (with \texttt{span}=0.2) embedded in the context of GAM is 5570.2. Altering the levels of \texttt{span} does not change much the resulted AIC.
+\par We now compute the AUC of the model fitted with NCS, which has a smaller AIC, as 0.7286, which is superior to logistic regression.
