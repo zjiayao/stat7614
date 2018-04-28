@@ -1,7 +1,8 @@
-train.x <- train_x
-test.x <- text_x
-train.y <- train_y
-test.y <- text_y
+# rename/copy data set
+train.x <- x_train
+test.x <- x_test
+train.y <- y_train
+test.y <- y_test
 
 # getting rid of rows contaning na
 train <- cbind(train.y, train.x) %>% na.omit()
