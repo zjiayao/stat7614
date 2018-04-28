@@ -207,7 +207,7 @@ conclude this paper.
 	    \caption{Summary for Categorical Covariates.}
 	    \label{table:data_summary:cat}
 	\end{table}
-	
+
 
 \input{gam}
 
@@ -222,24 +222,24 @@ conclude this paper.
     to the applications for CS graduate programs in the U.S.
     And empirically tested out several prevailed intuitions, namely,
     the U.S. bachelor degree is favourable, especially in PhD applications.
-    
+
     \par We now attempt to some question raised in the beginning of this report:
-    
+
      \begin{itemize}
     \item \emph{What are the significant covariates that impact the application results?} Among all predictors studies in our
-    data set, origin of the applicants (\texttt{status}) and which program to apply for (\texttt{degree}) contribute most to    
-    the decision in GAM and BN. Interestingly, the method of reception of application result also alludes, to a large extent, 
-    the decision of admission. Reception of a phone call from the institute implies a higher chance of being admitted. 
+    data set, origin of the applicants (\texttt{status}) and which program to apply for (\texttt{degree}) contribute most to
+    the decision in GAM and BN. Interestingly, the method of reception of application result also alludes, to a large extent,
+    the decision of admission. Reception of a phone call from the institute implies a higher chance of being admitted.
     However, tree methods provide different insights to the data, by emphasizing the importance of the universities themselves
-    (\texttt{uni_pub} and \texttt{uni_faculty}).
+    (\texttt{uni\_pub} and \texttt{uni\_faculty}).
 
 	\item \emph{Do GPA and standard test scores affects the application results differently for MS
-		    and PhD applicants?} Referring to the logistic regression fitted, interaction effects between 
-		    \texttt{degree:gpa} and \texttt{degree:gre} are not statistically significant under 5\% significance 
+		    and PhD applicants?} Referring to the logistic regression fitted, interaction effects between
+		    \texttt{degree:gpa} and \texttt{degree:gre} are not statistically significant under 5\% significance
 		    level, which suggests no difference in results for MS/PhD application.
 
-	\item \emph{Does possessing a U.S. Bachelor degree significantly increases the likelihood of being admitted?} Again, 
-	the effect is significant, but its numeric influence does not stand out among other predictors, such as 
+	\item \emph{Does possessing a U.S. Bachelor degree significantly increases the likelihood of being admitted?} Again,
+	the effect is significant, but its numeric influence does not stand out among other predictors, such as
 	\texttt{degree}.
     \end{itemize}
 
