@@ -56,3 +56,15 @@ NCS are, in fact, ordinary cubic splines with additional constraints on boundary
 for fixed $x$, where $\delta_x=\underset{x_i\in \mathcal{N}(x)}{\max}|x-x_i|$ denotes the diameter of the neighborhood. Then, estimation of fitted values is carried out by traversing the whole linear space. AUC of loess regression (with \texttt{span}=0.2) embedded in the context of GAM is 5570.2. Altering the levels of \texttt{span} does not change much the resulted AIC.
 \par We now compute the AUC of the model fitted with NCS, which has a smaller AIC, as 0.7286, which is superior to logistic regression. However, interpretability is hurt for predictors expanded by NCS. Hence, we will only elaborate a few preliminary but interesting findings from the logistic regression. 
 \par Here, we omit insignificant levels of categorical predictors for easier analysis. The acceptance rate for \texttt{PhD} application is significantly lower than that for \texttt{MS}. Results released through \texttt{Phone} are more likely to be an offer rather than a rejection letter, followed by \texttt{Email} and \texttt{Website}. This makes sense because important and urgent decisions are often transmitted though more efficient and effective communication tools. U.S. students have a bigger chance to get admitted, compared to students from other backgrounds. While this might be the case, it is worth notcing that international students who apply for \texttt{PhD} degrees has the best shot of admission. Candidates who has higher \texttt{gpa} and \texttt{gre} scores are preferred. Moreover, it is more difficult to secure a place in universities with higher rankings, as anticipated, and those with more faculty members tend to take in more applicants.
+\begin{tabular}
+\centering
+\begin{table}{l|ccc}
+\hline
+Effect & Estimate & Std. Error & \textit{p}-value \\
+\hline
+\texttt{decision_methodPhone} &  1.846362 & 0.319259 & 7.33e-09 \\
+\texttt{degreePhD:statusInternational} & 0.405409 & 0.162446 & 0.0126 \\
+\hline
+\end{table}
+\caption{Some coefficients fitted with logistic regression}
+\end{tabular}
