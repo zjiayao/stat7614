@@ -34,8 +34,8 @@
     schools has been elevated to an unprecedented new height \cite{Rag:2010:GRAD}. In this paper, motivated
     by these observations, the authors, consisting of a data-driven earth scientist, a computational biologist,
      and a machine learning researcher, study the factors governing the
-    admissions of graduate schools in the U.S. by means of \noun{general linear models} (GLM),
-    \noun{general additive models} (GAM), \noun{nonparametric methods} such as ensemble learning and
+    admissions of graduate schools in the U.S. by means of \noun{Generalized Linear Models} (GLM),
+    \noun{Generalized Additive Models} (GAM), distribution-free methods such as \noun{Ensemble Learning} (EL) and
     \noun{Discrete Bayesian Networks} (DBN).
     We seek answers to several interesting questions and
     render crisp insights from the model inference and analysis.
@@ -47,8 +47,8 @@
 \section{Introduction}
 
 We study the admission results of applications for CS graduate school in the U.S. We obtain data from \noun{GradCafe} \cite{GradCafe} and
-\noun{CSRankings} \cite{CSR}. In this paper, we study the factors governing the decision made through GLM and GAM, we compare the results
-learnt through canonical nonparametric learning methods including ensemble methods and boosting. We further explore the dependency relationship
+\noun{CSRankings} \cite{CSR}. In this paper, we study the factors governing the decision made through GLM, GAM and EL.
+We further explore the dependency relationship
 among the data by way of discrete Bayesian network.
 Through the study outlined in this paper, we aim at seeking a better understanding of graduate school applications in CS related subjects. We summarize our contribution as follows:
 
@@ -74,11 +74,14 @@ Through the study outlined in this paper, we aim at seeking a better understandi
 This paper is structured as follows, \Cref{sec:background} introduces
 the dataset protocol and recall important notions of GLM and GAM, which
 we only give a brief treatment as the readers of this paper are expected
-to be familiar with these topics; \Cref{sec:methods} discusses the models
+to be familiar with these topics; \Cref{sec:gam} discusses the GLM and GAM
 we adopt for the admission results data, we emphasis on the applicability
-and estimate the expressivity of the model chosen; we next fit the proposed
-model in \Cref{sec:results} together with model selection and parameter analysis
-and interpretation, based on which, we are ready to outline the answers to the
+and expressivity of the model chosen; we next compare the GAM
+with distributional-free ensemble learners including \noun{Random Forest} (RF),
+and utilize \texttt{xgBoost} for feature selection in \Cref{sec:tree}; we then explore the dependency
+of covariates by learning a DBN in \Cref{sec:bn}.
+Based on these explorations,
+we are ready to outline the answers to the
 questions of interest as well as provide tips in \Cref{sec:conclusions}. We also
 include a sketchy mention of the limitations and future directions as we
 conclude this paper.
@@ -130,8 +133,8 @@ conclude this paper.
 	\var{decision}, one of either \var{\{Accepted, Rejected, Wait Listed\}}, the application result;
 	\var{gpa}, the latest Grading Point Average (GPA) the applicant possesses;
 	\var{gre\_verbal}, \var{gre\_quant}, \var{gre\_writing}, standard test scores examining verbal, quantitative and writing skills;
-	\var{status}, either one of \var{\{American, International, International with US Degree,
-	Other\}}, dictating the status of the applicant as of the application
+	\var{status}, either one of \var{\{American (A), International (I), International with US Degree (U),
+	Other (O)\}}, dictating the status of the applicant as of the application;
 	\var{comments}, additional information shared by the applicant. Several
 	typical entries are tabulated in \Cref{table:data_sample}.
 
@@ -149,9 +152,14 @@ conclude this paper.
 	We preprocess the dataset to select those applications made to US universities,
 	clean up invalid data, normalize the GPA on a $4.0$ scale and GRE tests
 	to new scale ($170$ maximum). We also merge the categories \var{\{MBA, MEng, MFA, MS, Other\}}
-	to a singleton \var{MS} as it suffices the objectives set for this paper. After these manipulations,
-	we had $21209$ records from the applications ranging from $2011$ to $2015$. Noted some records
-	may miss certain metrics such as GPA, in that case, our model ignore the very entries for parameter
+	to a singleton \var{MS} as it suffices the objectives set for this paper.
+	Noted we are mainly interested in the binary response of \var{decision}, and the category \var{Wait Listed}
+	may be duplicated with other entries (the original posters may update thier decision later).
+	We thus drop the recordes corresponding to \var{Wait Listed} decision.
+	After these manipulations,
+	we have $21209$ records from the applications ranging from $2011$ to $2015$.
+	Noted some records
+	may miss certain metrics such as GPA. In that case, our model ignore the very entries for parameter
 	estimation. A short summary of the cleaned dataset is given in \Cref{table:data_summary:quant,table:data_summary:cat}. We also plot the histogram of several selected covariates in \Cref{fig:dataset}.
 
 	\begin{table}[htpb]

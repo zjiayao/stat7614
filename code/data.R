@@ -1,5 +1,6 @@
 library(dplyr)
-raw = read.csv(file = "/Users/l-c/Desktop/STAT3612-master/stat7614/dataset/gradcafe/cs_arw_reduced.csv", header = TRUE) %>% data.frame()
+raw = read.csv(url("https://i.cs.hku.hk/~jyzhang/misc/cs_reduced.csv"),
+	       header = TRUE) %>% data.frame()
 raw$id <- NULL
 raw$university <- NULL
 raw$season <- NULL
