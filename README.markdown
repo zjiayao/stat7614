@@ -1,12 +1,5 @@
 # STAT7614: Advanced Statistical Learning Mini Project
 
-## Clone
-
-Please use the following command to clone this repo:
-```
-    git clone https://github.com/zjiayao/stat7614.git
-```
-
 ## Aim
 Recent years have witnessed a surge in Computer Science (CS) research, which
 achieved unparalleled successes in a kaleidoscope of science and engineering
@@ -28,4 +21,28 @@ out several possible future directions.
 
 ## Delieverable
 
-The report can be found via at `https://jiayao-zhang.com/doc/stat7614_report.pdf`.
+We use the [paper draft philosophy](http://blog.liyiwei.org/?p=1215) introduced by [Li-Yi Wei](http://www.liyiwei.org)
+throughout this project.
+The report can be found online [here](https://jiayao-zhang.com/doc/stat7614_report.pdf).
+
+## Contributors
+
+[Chen Liu](https://www.linkedin.com/in/chen-liu-283830105/), [Zehao Su](https://www.linkedin.com/in/zehao-su-235a9b153/), and [Jiayao Zhang](https://jiayao-zhang.com).
+All authors contributed equally.
+
+
+## Cite this project
+
+If you found this repo useful, please consider cite this project.
+A possible `bibtex` entry may be:
+
+```
+@misc{LSZ18,
+  author = {Liu, Chen and Su, Zehao and Zhang, Jiayao}
+  title = {Understanding Admission Results of CS Graduate Programs in U.S. Universities},
+  year = {2018},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/zjiayao/stat7614}},
+}
+```
